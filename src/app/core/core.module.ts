@@ -1,3 +1,5 @@
+import { UserService } from './services/user.service';
+import { fakeBackendProvider } from './services/fake-backend.service';
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -7,6 +9,10 @@ import { CommonModule } from '@angular/common';
   declarations: [],
   imports: [
     CommonModule
+  ],
+  providers: [
+    fakeBackendProvider,
+    UserService
   ]
 })
 export class CoreModule {
