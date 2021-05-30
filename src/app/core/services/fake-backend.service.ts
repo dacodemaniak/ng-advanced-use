@@ -30,15 +30,17 @@ const routeMatchers: Map<string, {path: RegExp, method: string, action: any}> = 
     {
       path: /\api\/v1\/user+$/,
       method: 'POST',
-      action: (body: any): Observable<HttpEvent<any>> => {
+      action: (...params: any[]): Observable<HttpEvent<any>> => {
         const nextId: number = users.length ?
-          users.sort((u1: any, u2: any) => u2 - u1)[0] + 1 :
+          users.sort((u1: any, u2: any) => u2 - u1)[0].id + 1 :
           1;
-        body.id = nextId;
-        users.push(body);
+
+        const  user = params[0];
+        user.id = nextId;
+        users.push(user);
         localStorage.setItem('users', JSON.stringify(users));
 
-        return ok(body)
+        return ok(user)
       }
     }
   )
