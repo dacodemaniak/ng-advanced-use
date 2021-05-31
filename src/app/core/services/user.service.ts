@@ -14,6 +14,15 @@ export class UserService {
     private httpClient: HttpClient
   ) { }
 
+  public byName(name: string): Observable<any> {
+    return this.httpClient.get(
+      `${environment.localUriRoot}user/${encodeURI(name)}`,
+      {
+        observe: 'response'
+      }
+    );
+  }
+
   public add(user: any): Observable<any> {
     return this.httpClient.post(
       `${environment.localUriRoot}user`,
