@@ -1,8 +1,12 @@
+import { fakeBackendProvider } from './fake-backend.service';
+import { User } from './../models/user';
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { TestBed } from '@angular/core/testing';
+import { fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
 
 import { UserService } from './user.service';
+
+import { environment } from '@environments/environment';
 
 describe('UserService', () => {
   let service: UserService;
@@ -14,6 +18,7 @@ describe('UserService', () => {
         HttpClientTestingModule
       ],
       providers: [
+        fakeBackendProvider,
         HttpClient,
         HttpHandler,
         UserService
@@ -30,7 +35,7 @@ describe('UserService', () => {
     expect(service).toBeTruthy();
   });
 
-  it ('Should return a user with an id', (done) => {
+  it ('Should return a user with an id', inject([UserService], fakeAsync((service: UserService) => {
     let userCreated: any = {};
     let userToCreate: any = {
       username: 'dupont',
@@ -40,12 +45,15 @@ describe('UserService', () => {
       userCreated = result;
       const hasAnId: boolean = userCreated.hasOwnProperty('id');
       expect(hasAnId).toBeTrue();
-      done();
+      expect(userCreated instanceof User).toBeTrue();
     });
-    const request = httpMock.expectOne('http://localhost:4200/api/v1/user');
-    expect(request.request.method).toBe('POST');
+
+    const request = httpMock.expectOne(`${environment.localUriRoot}user`);
     request.flush(userToCreate);
-  });
+    expect(request.request.method).toBe('POST');
+    tick();
+
+  })));
 
   it('Should return a 200 if user doesn\'t exist', () => {});
 
