@@ -1,4 +1,3 @@
-
 import { fakeBackendProvider } from './fake-backend.service';
 import { User } from './../models/user';
 import { HttpClient, HttpHandler } from '@angular/common/http';
