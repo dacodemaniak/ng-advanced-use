@@ -1,4 +1,4 @@
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -11,10 +11,15 @@ import { User } from '../models/user';
 
 @Injectable()
 export class UserService {
+  private isAuthenticated$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(
     private httpClient: HttpClient
   ) { }
+
+  public authenticated(): Subject<boolean> {
+    return this.isAuthenticated$;
+  }
 
   public byName(name: string): Observable<any> {
     return this.httpClient.get(
