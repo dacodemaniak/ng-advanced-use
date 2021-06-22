@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LogoutRowComponent } from './logout-row.component';
+import { AnonymousComponent } from './anonymous.component';
 
-describe('LogoutRowComponent', () => {
-  let component: LogoutRowComponent;
-  let fixture: ComponentFixture<LogoutRowComponent>;
+describe('AnonymousComponent', () => {
+  let component: AnonymousComponent;
+  let fixture: ComponentFixture<AnonymousComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LogoutRowComponent ]
+      declarations: [ AnonymousComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LogoutRowComponent);
+    fixture = TestBed.createComponent(AnonymousComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
