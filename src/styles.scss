@@ -1,1 +1,20 @@
-/* You can add global styles to this file, and also import other style files */
+/* Import material icons font styles */
+@import '~material-icons/iconfont/material-icons.css';
+
+/**
+* Styling rounded account icon
+**/
+user-menu, [userMenu] {
+  display: block;
+  height: 2em;
+  width: 2em;
+  text-align: center;
+  border-radius: 50%;
+  background-color: rgba(80, 80, 80, .8);
+
+  .material-icons {
+    line-height: 1.3em;
+    vertical-align: middle;
+    color: #fff;
+  }
+}

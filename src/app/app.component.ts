@@ -1,7 +1,8 @@
+import { Router } from '@angular/router';
 import { UserService } from './core/services/user.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { take } from 'rxjs/operators';
-import { Subscription } from 'rxjs';
+import { BehaviorSubject, Subject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -12,26 +13,21 @@ export class AppComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
   constructor(
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) {}
 
   title = 'advanced-use';
 
-  ngOnInit() {
-    this.subscriptions.push(this.userService.add(
-      {
-        username: 'jlaubert',
-        password: 'jla01'
-      }
-    ).pipe(
-      take(1)
-    )
-    .subscribe((element: any) => {
-      console.log(`Got ${JSON.stringify(element)}`);
-    }));
-  }
+  ngOnInit() {}
 
   ngOnDestroy() {
     this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
+  }
+
+  public showMenu(event: BehaviorSubject<boolean>): void {
+    event.subscribe((isAuthenticate: boolean) => {
+      isAuthenticate ? this.userService.logout() : this.router.navigate(['user','login']);
+    })
   }
 }

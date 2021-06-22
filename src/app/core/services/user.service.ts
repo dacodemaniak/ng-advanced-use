@@ -11,14 +11,18 @@ import { User } from '../models/user';
 
 @Injectable()
 export class UserService {
-  private isAuthenticated$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public isAuthenticated$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(
     private httpClient: HttpClient
   ) { }
 
-  public authenticated(): Subject<boolean> {
+  public authenticated(): BehaviorSubject<boolean> {
     return this.isAuthenticated$;
+  }
+
+  public logout(): void {
+    this.isAuthenticated$.next(false);
   }
 
   public byName(name: string): Observable<any> {
