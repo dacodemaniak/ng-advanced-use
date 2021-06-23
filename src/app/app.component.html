@@ -1,4 +1,4 @@
 <user-menu (authentication)="showMenu($event)"></user-menu>
-<app-profile></app-profile>
+<app-profile *ngIf="isProfileShowed"></app-profile>
 
 <router-outlet></router-outlet>
