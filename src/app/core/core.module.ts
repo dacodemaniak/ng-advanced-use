@@ -4,8 +4,6 @@ import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserDirective } from './directives/user.directive';
 
-
-
 @NgModule({
   declarations: [
     UserDirective

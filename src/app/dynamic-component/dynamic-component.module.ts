@@ -14,7 +14,7 @@ import { ProfileHostDirective } from './directives/profile-host.directive';
     ProfileHostDirective
   ],
   imports: [
-    CommonModule
+    //CommonModule
   ],
   exports: [
     ProfileComponent

@@ -1,3 +1,4 @@
+import { User } from './../models/user';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { ComponentFactoryResolver, Injectable, ViewContainerRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -7,11 +8,11 @@ import { hydrate } from './../../_helpers/hydrater_helper';
 import { map, take } from 'rxjs/operators';
 
 import { environment } from '@environments/environment';
-import { User } from '../models/user';
 
 @Injectable()
 export class UserService {
   public isAuthenticated$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private user!: User;
 
   constructor(
     private httpClient: HttpClient,
@@ -24,6 +25,15 @@ export class UserService {
 
   public logout(): void {
     this.isAuthenticated$.next(false);
+  }
+
+  public signin(credentials: any): Observable<any> {
+    return this.httpClient.get(
+      `${environment.localUriRoot}signin/${encodeURI(credentials.login)}/${encodeURI(credentials.password)}`,
+      {
+        observe: 'response'
+      }
+    );
   }
 
   public byName(name: string): Observable<any> {
