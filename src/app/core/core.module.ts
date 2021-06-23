@@ -3,14 +3,12 @@ import { fakeBackendProvider } from './services/fake-backend.service';
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserDirective } from './directives/user.directive';
-import { ProfileHostDirective } from './directives/profile-host.directive';
 
 
 
 @NgModule({
   declarations: [
-    UserDirective,
-    ProfileHostDirective
+    UserDirective
   ],
   imports: [
     CommonModule
