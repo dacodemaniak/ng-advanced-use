@@ -11,6 +11,7 @@ import { BehaviorSubject, Subject, Subscription } from 'rxjs';
 })
 export class AppComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
+  public isProfileShowed = false;
 
   constructor(
     private userService: UserService,
@@ -28,6 +29,7 @@ export class AppComponent implements OnInit, OnDestroy {
   public showMenu(event: BehaviorSubject<boolean>): void {
     event.subscribe((isAuthenticate: boolean) => {
       isAuthenticate ? this.userService.logout() : this.router.navigate(['user','login']);
-    })
+    });
+    this.isProfileShowed = !this.isProfileShowed;
   }
 }

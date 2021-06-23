@@ -1,5 +1,5 @@
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
-import { Injectable } from '@angular/core';
+import { ComponentFactoryResolver, Injectable, ViewContainerRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { hydrate } from './../../_helpers/hydrater_helper';
@@ -14,7 +14,8 @@ export class UserService {
   public isAuthenticated$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private componentFactoryResolver: ComponentFactoryResolver
   ) { }
 
   public authenticated(): BehaviorSubject<boolean> {
@@ -42,6 +43,19 @@ export class UserService {
     ).pipe(
       take(1),
       map((rawUser: any) => hydrate(User, rawUser, false))
+    );
+  }
+
+  public async loadComponent(vcr: ViewContainerRef, isLoggedIn: boolean) {
+    const { AnonymousComponent } = await import('./../../dynamic-component/components/anonymous/anonymous.component');
+    const { RegisteredComponent } = await import('./../../dynamic-component/components/registered/registered.component');
+
+    vcr.clear();
+
+    const component: any = isLoggedIn ? RegisteredComponent : AnonymousComponent;
+
+    return vcr.createComponent(
+      this.componentFactoryResolver.resolveComponentFactory(component)
     );
   }
 }

@@ -1,3 +1,4 @@
+import { DynamicComponentModule } from './dynamic-component/dynamic-component.module';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { NgModule } from '@angular/core';
@@ -16,7 +17,8 @@ import { HomeModule } from './home/home.module';
     AppRoutingModule,
     CoreModule,
     SharedModule,
-    HomeModule
+    HomeModule,
+    DynamicComponentModule
   ],
   providers: [],
   bootstrap: [AppComponent]
