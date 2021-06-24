@@ -1,1 +1,26 @@
-<p>login works!</p>
+<form [formGroup]="form" class="p-fluid p-formgrid p-grid" (ngSubmit)="doLogin()">
+  <div class="p-float-label p-col">
+    <input type="text" pInputText formControlName="login" [ngClass]="{'invalid-state': c.login.errors && c.login.dirty && c.login.touched}">
+    <label for="">Login</label>
+  </div>
+
+  <div class="p-float-label p-col">
+    <p-password
+      formControlName="password"
+      [ngClass]="{'invalid-state': c.password.errors && c.password.dirty && c.password.touched}"
+      [toggleMask]="true"
+    >
+    </p-password>
+    <label for="">Password</label>
+  </div>
+  <div class="p-col">
+    <button
+      pButton pRipple
+      type="submit"
+      label="Sign In"
+      class="p-button-success"
+      [disabled]="form.invalid"
+    >
+    </button>
+  </div>
+</form>

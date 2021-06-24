@@ -64,6 +64,16 @@ const routeMatchers: Map<string, {path: RegExp, method: string, action: any}> = 
       }
     }
   )
+  .set(
+    'user_signin',
+    {
+      path: /\/api\/v1\/signin\/\w+\/\w+$/,
+      method: 'GET',
+      action: () => {
+        return ok({message: 'GET on user_signin route was intercepted'})
+      }
+    }
+  )
 
 @Injectable({
   providedIn: 'root'
